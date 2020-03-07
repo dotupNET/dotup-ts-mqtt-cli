@@ -43,6 +43,25 @@ async function getTopicToPublish(): Promise<string> {
   return answer.topic;
 }
 
+async function getMqttHostName(): Promise<string> {
+
+  const answer = await prompt<{ host: string }>({
+    type: "input",
+    name: "host",
+    message: "Enter MQTT server name",
+    initial: "localhost",
+    result: (value) => {
+      if (value === undefined || value.length < 1) {
+        return "localhost";
+      } else {
+        return value;
+      }
+    }
+  });
+
+  return answer.host;
+}
+
 export class Sample {
 
   private mqtt: MqttConnection;
@@ -50,11 +69,12 @@ export class Sample {
   async run(): Promise<void> {
 
 
+    const host = await getMqttHostName();
 
     // Initialize logger
     this.mqtt = new MqttConnection();
     await this.mqtt.connect({
-      host: "localhost",
+      host: host,
       protocol: "ws",
       port: 1883,
       clientId: `dotup-ts-mqtt-${getHostname()}`

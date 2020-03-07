@@ -1,5 +1,5 @@
 {
-  "version": "2.2.1",
+  "version": "2.2.2",
   "name": "@dotup/dotup-ts-mqtt-cli",
   "author": {
     "name": "Peter Ullrich",
