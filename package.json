@@ -1,0 +1,97 @@
+{
+  "version": "2.2.1",
+  "name": "@dotup/dotup-ts-mqtt-cli",
+  "author": {
+    "name": "Peter Ullrich",
+    "email": "dotup.software@gmail.com"
+  },
+  "main": "dist/cli.js",
+  "types": "dist/cli.d.ts",
+  "scripts": {
+    "build": "npm run build-ts",
+    "build-ts": "npm run lint && npm run clean-dist && tsc -p tsconfig.build.json && npm run copy-static-assets",
+    "build-test": "npm run clean-dist && tsc -p tsconfig.json && npm run copy-static-assets",
+    "build-esnext": "npm run lint && npm run clean-dist && tsc -p tsconfig.esnext.json && npm run copy-static-assets",
+    "build-r": "npm run lint && npm run clean-dist && rollup -c && npm run copy-static-assets",
+    "release": "npm run release-ts",
+    "release-ts": "npm run gh-pages && npm run build-ts && npm run test && git push && npm run publish-pnpm",
+    "release-esnext": "npm run gh-pages && npm run build-esnext && npm run test && git push && npm run publish-pnpm",
+    "release-r": "npm run gh-pages && npm run build-r && npm run test && git push && npm run publish-pnpm",
+    "postversion": "git push && git push --tags",
+    "clean-dist": "rimraf dist",
+    "clean-node_modules": "rimraf node_modules",
+    "test": "mocha",
+    "test-build": "npm run build-test && npm run test",
+    "coverage": "npm run DOESNOTWORK && npm run build-test && nyc mocha",
+    "test-jest": "npm run build-test && jest --forceExit --verbose",
+    "test-mocha": "node node_modules/mocha/bin/mocha --require ts-node/register test/*.test.ts --reporter spec",
+    "coverage-jest": "npm run build-test && jest --forceExit --coverage --verbose",
+    "coveralls-jest": "npm run coverage-jest && cat ./tests/coverage/lcov.info | coveralls",
+    "lint": "tsc -p tsconfig.json --noEmit && eslint \"**/*.{ts,tsx}\" --quiet --fix",
+    "docs": "typedoc --mode file --out docs src --exclude \"**/*+(index|.spec|.test|.e2e).ts\"",
+    "gh-pages": "rimraf docs && npm run docs && gh-pages -d docs",
+    "publish-npm": "npm publish",
+    "publish-pnpm": "pnpm publish",
+    "start": "npm run serve",
+    "serve": "node dist/server.js",
+    "watch-node": "nodemon dist/sample.js",
+    "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
+    "watch-test": "npm run test -- --watchAll",
+    "watch-ts": "tsc -w",
+    "copy-static-assets": "ts-node copyStaticAssets.ts",
+    "debug": "npm run build && npm run watch-debug",
+    "serve-debug": "nodemon --inspect dist/server.js",
+    "watch-debug": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\"",
+    "watch-debug-nodemon": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run serve-debug\"",
+    "postpublish": "git tag -a v%npm_package_version% -m \"Release v%npm_package_version%\" && git push origin --tags",
+    "commit-release": "git commit -a -m \"Release v%npm_package_version%\" && git push && git tag -a v%npm_package_version% -m \"Release v%npm_package_version%\" && git push origin --tags"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.10",
+    "@types/eslint": "^6.1.8",
+    "@types/mocha": "^7.0.2",
+    "@types/node": "13.7.7",
+    "@types/shelljs": "^0.8.6",
+    "@types/uuid": "^7.0.0",
+    "@typescript-eslint/eslint-plugin": "^2.22.0",
+    "@typescript-eslint/parser": "^2.22.0",
+    "chai": "^4.2.0",
+    "cross-spawn": "7.0.1",
+    "del": "^5.1.0",
+    "dotup-ts-git-wrapper": "^1.0.0",
+    "eslint": "^6.8.0",
+    "gh-pages": "^2.2.0",
+    "gulp": "^4.0.2",
+    "gulp-eslint": "6.0.0",
+    "gulp-gh-pages": "^0.5.4",
+    "gulp-mocha": "^7.0.2",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-typedoc": "^2.2.4",
+    "gulp-typescript": "^5.0.1",
+    "mocha": "^7.1.0",
+    "ts-node": "^8.6.2",
+    "typedoc": "^0.16.11",
+    "typescript": "^3.8.3"
+  },
+  "license": "AGPL-3.0-only",
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "mqtt-test": "dist/cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dotupNET/dotup-ts-mqtt-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dotupNET/dotup-ts-mqtt-cli/issues"
+  },
+  "homepage": "https://github.com/dotupNET/dotup-ts-mqtt-cli#readme",
+  "dependencies": {
+    "@dotup/dotup-ts-mqtt": "workspace:^2.2.1",
+    "@dotup/dotup-ts-types": "1.1.1",
+    "enquirer": "2.3.0",
+    "log4js": "^6.1.2"
+  }
+}
