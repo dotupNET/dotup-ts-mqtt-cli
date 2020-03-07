@@ -98,9 +98,11 @@ export class Sample {
     });
 
     const ts = await getTopicToPublish();
+    const pcname = getHostname();
+
     setInterval(() => {
       this.mqtt.publish<string>({
-        topic: ts,
+        topic: `${pcname}/${ts}`,
         message: new Date().toUTCString(),
         // messageId: '1',
         QoS: QosType.AtMostOnce,
