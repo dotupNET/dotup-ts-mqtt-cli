@@ -1,8 +1,16 @@
 #!/usr/bin/env node
-import { MqttConnection, QosType } from "@dotup/dotup-ts-mqtt";
+import { MqttConnection, QosType, ConfigureLogging } from "@dotup/dotup-ts-mqtt";
 import * as os from "os";
 // import enquirer from "enquirer";
 import { prompt } from "enquirer";
+
+let prefix = "production";
+if (process.env.NODE_ENV !== undefined) {
+  prefix = process.env.NODE_ENV;
+}
+
+ConfigureLogging(`${__dirname}/assets/logging.${prefix}.json`);
+
 
 function getHostname(): string {
   return os.hostname();
@@ -74,6 +82,9 @@ export class Sample {
 
     // Initialize logger
     this.mqtt = new MqttConnection();
+
+    console.log(`Connecting to ${host}`);
+
     await this.mqtt.connect({
       host: host,
       protocol: "ws",
