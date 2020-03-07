@@ -1,15 +1,14 @@
 import { MqttConnection, QosType } from "@dotup/dotup-ts-mqtt";
 import * as os from "os";
-import enquirer from "enquirer";
-
+// import enquirer from "enquirer";
+import { prompt } from "enquirer";
 
 function getHostname(): string {
   return os.hostname();
 }
 
 async function getTopicToSubscribe(): Promise<string> {
-
-  const answer = await enquirer.prompt<{ topic: string }>({
+  const answer = await prompt<{ topic: string }>({
     type: "input",
     name: "topic",
     message: "Enter topic filter",
@@ -27,7 +26,7 @@ async function getTopicToSubscribe(): Promise<string> {
 
 async function getTopicToPublish(): Promise<string> {
 
-  const answer = await enquirer.prompt<{ topic: string }>({
+  const answer = await prompt<{ topic: string }>({
     type: "input",
     name: "topic",
     message: "Enter topic to publish",

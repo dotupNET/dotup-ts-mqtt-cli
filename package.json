@@ -56,6 +56,7 @@
     "@typescript-eslint/eslint-plugin": "^2.22.0",
     "@typescript-eslint/parser": "^2.22.0",
     "chai": "^4.2.0",
+    "concurrently": "^5.1.0",
     "cross-spawn": "7.0.1",
     "del": "^5.1.0",
     "dotup-ts-git-wrapper": "^1.0.0",
@@ -91,7 +92,7 @@
   "dependencies": {
     "@dotup/dotup-ts-mqtt": "workspace:^2.2.1",
     "@dotup/dotup-ts-types": "1.1.1",
-    "enquirer": "2.3.0",
+    "enquirer": "2.3.4",
     "log4js": "^6.1.2"
   }
 }
