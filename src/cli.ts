@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { MqttConnection, QosType } from "@dotup/dotup-ts-mqtt";
 import * as os from "os";
 // import enquirer from "enquirer";
