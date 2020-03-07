@@ -1,5 +1,5 @@
 {
-  "version": "2.2.5",
+  "version": "2.3.0",
   "name": "@dotup/dotup-ts-mqtt-cli",
   "author": {
     "name": "Peter Ullrich",
@@ -88,7 +88,7 @@
   },
   "homepage": "https://github.com/dotupNET/dotup-ts-mqtt-cli#readme",
   "dependencies": {
-    "@dotup/dotup-ts-mqtt": "workspace:^2.2.2",
+    "@dotup/dotup-ts-mqtt": "workspace:^2.3.0",
     "@dotup/dotup-ts-types": "1.1.1",
     "enquirer": "2.3.4",
     "log4js": "^6.1.2"
